@@ -1,0 +1,5 @@
+USER_DB='postgres'
+PASS_DB='o0pO)P'
+HOST_DB='127.0.0.1'
+PORT_DB='5433'
+DB_NAME='postgres'

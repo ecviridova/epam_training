@@ -1,14 +1,15 @@
 import psycopg2
 import sys
+from dbkeys import USER_DB, PASS_DB, HOST_DB, PORT_DB, DB_NAME
 
 
 def db_connection():
     try:
-        connection = psycopg2.connect(user='postgres',
-                                      password='o0pO)P',
-                                      host='127.0.0.1',
-                                      port='5433',
-                                      database='postgres')
+        connection = psycopg2.connect(user=USER_DB,
+                                      password=PASS_DB,
+                                      host=HOST_DB,
+                                      port=PORT_DB,
+                                      database=DB_NAME)
         return connection
     except Exception as error:
         print("Error occurred while connection: ", error)
