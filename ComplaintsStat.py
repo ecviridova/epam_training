@@ -15,14 +15,14 @@ except Exception as error:
 
 def issuecounter(cursor, date_from, date_to):
     query = """
-        select product_name,
-        count(issue) issue,
-        count(timely_response) filter (where timely_response is true),
-        count(consumer_disputed) filter (where consumer_disputed is true)
-        from complaints.user_complaints
-        where date_received >= %s and date_received < %s
-        group by product_name
-        order by issues desc
+        select  product_name,
+        issue,
+        count(timely_response) filter (where timely_response_bool is true) ct,
+        count(consumer_disputed) filter (where consumer_disputed_bool is true) ccd
+        from user_complaints
+        where date_received >= %s and date_received <= %s
+        group by product_name, issue
+        order by count(issue) desc
     ;"""
     cursor.execute(query, (date_from, date_to))
     header = "product_name, issues, timely_response, consumer_disputed"
