@@ -42,7 +42,7 @@ def issuecounter(cursor, date_from, date_to):
             order by count(issue) desc
             limit 1)
             and company = %s
-            limit 3;
+            limit 3
         ;"""
 
         cursor.execute(query, (company, company))
