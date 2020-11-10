@@ -34,16 +34,15 @@ def issuecounter(cursor, date_from, date_to):
 
  def bad_company(cursor, company):
         query = """
-            select * from complaints.user_complaints
-            where state_name = (select state_name,
-                    count(issue) as isscount
-            from complaints.user_complaints
+            select * from user_complaints
+            where state_name = (select state_name
+            from user_complaints
             where company = %s
             group by state_name
-            order by isscount desc
+            order by count(issue) desc
             limit 1)
             and company = %s
-            limit 3
+            limit 3;
         ;"""
 
         cursor.execute(query, (company, company))
