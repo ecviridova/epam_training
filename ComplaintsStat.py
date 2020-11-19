@@ -47,6 +47,42 @@ def issuecounter(cursor, date_from, date_to):
         cursor.execute(query, (company, company))
         for row in cursor:
             print(row)
+            
+            
+            
+def bad_company2(cursor, company):
+    query = """
+    with t1 as (
+	select
+		company,
+		state_name,
+		count(issue) ci
+	from 
+        user_complaints
+	where 
+        company = %s
+	group by
+        company, state_name
+	order by
+        ci desc
+	limit 1)
+    select 
+	    t1.company,
+	    t1.state_name,
+	    uc.product_name,
+	    uc.sub_product,
+	    uc.issue
+    from 
+        user_complaints uc, t1
+    where 
+        uc.company = t1.company
+	    and uc.state_name = t1.state_name
+    group by
+        t1.company, t1.state_name, uc.product_name, uc.sub_product, uc.issue
+    ;"""
+    cursor.execute(query, company)
+        for row in cursor:
+            print(row)
 
 
 
