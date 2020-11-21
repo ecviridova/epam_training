@@ -68,6 +68,8 @@ def bad_company2(cursor, company):
     group by
         t1.company, t1.state_name, uc.product_name, uc.sub_product, uc.issue
     ;"""
+    header = "company, state_name, product_name, sub_product, issue"
+    print(header)
     cursor.execute(query, company)
         for row in cursor:
             print(row)
